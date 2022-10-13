@@ -24,7 +24,7 @@ menu_def = [['File', ['Open', 'Save', 'Exit', 'Properties']],
 layot = [[sg.Menu(menu_def, tearoff=True)],
         [sg.Text("Vārds"), sg.InputText (size=(25,1))],
         [sg.Text("Uzvārd"), sg.InputText (size=(25,1))],
-        [sg.Text("dzinšanas datums"), sg.InputText         ('dd,mm,gggg',size=(25,1))],
+        [sg.Text("dzinšanas datums"), sg.InputText('dd,mm,gggg',size=(25,1))],
         [sg.Text("Augums"), sg.InputText (size=(25,1))],
         [sg.Text("Svars"), sg.InputText(size=(25,1))],
         [sg.Button("aprēķināt BMI", key='submit')],
@@ -40,7 +40,7 @@ while True:
       print(values[1],values[2],bmi)
       break
     if event == 'submit':
-      bmi = calc_bmi(values[3], values[4])
+      bmi = calc_bmi(values[4], values[5])
       window['bmi'].update (bmi)
     if event == 'glab':
       window['radit'].update('dati saglabāti')
