@@ -18,11 +18,15 @@ def calc_bmi(h,w):
     else:
         return (f'BMI: {bmi}, {standard}')
 
-layot = [[sg.Text("Augums"), sg.InputText (size=(25,1))],
+layot = [[sg.Text("Vārds"), sg.InputText (size=(25,1))],
+        [sg.Text("Uzvārd"), sg.InputText (size=(25,1))],
+        [sg.Text("dzinšanas datums"), sg.InputText ('dd,mm,gggg',size=(25,1))],
+        [sg.Text("Augums"), sg.InputText (size=(25,1))],
         [sg.Text("Svars"), sg.InputText(size=(25,1))],
         [sg.Button("aprēķināt BMI", key='submit')],
         [sg.Text('', key='bmi', size=(20,2))],
-        [sg.Button("Beigt", key='q')]]
+        [sg.Text('', key='radit',size=(20,2))],
+        [sg.Button("Saglabat datus", key='glab'),sg.Button("Beigt", key='q')]]
 
 window = sg.Window ("Calculator BMI", layot)
 
@@ -31,7 +35,8 @@ while True:
     if event == sg.WINDOW_CLOSED or event == 'q':
         break
     if event == 'submit':
-        bmi = calc_bmi(values[0], values[1])
+        bmi = calc_bmi(values[3], values[4])
         window['bmi'].update (bmi)
-
+    if event == 'glab':
+      window['radit'].update('dati saglabati')
 window.close()
