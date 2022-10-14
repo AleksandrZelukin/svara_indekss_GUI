@@ -19,6 +19,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS users(
 """)
 conn.commit()
 # https://pythonru.com/osnovy/sqlite-v-python
+#https://pythobyte.com/python-sqlite3-tutorial-database-programming-riqdhwx9z-fafd14f8/
 
 def calc_bmi(h,w):
     try:
@@ -65,4 +66,7 @@ while True:
       window['bmi'].update (bmi)
     if event == 'glab':
       window['radit'].update('dati saglabāti')
+      cur.execute("""INSERT INTO users(userid, vards, uzvards, dzimsanas datums, augums, svars, bmi) 
+   VALUES(values[0], values[1], values[2], values[3], values[4], values[5],bmi);""")
+conn.commit()
 window.close()
