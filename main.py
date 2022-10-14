@@ -1,6 +1,25 @@
 from cgitb import text
 from curses import window
+from datetime import date
 import PySimpleGUI as sg
+import sqlite3
+
+conn = sqlite3.connect(r'veseliba.db')
+
+cur = conn.cursor()
+
+cur.execute("""CREATE TABLE IF NOT EXISTS users(
+   userid INT PRIMARY KEY,
+   vards TEXT,
+   uzvards TEXT,
+   dzimsanas datums TEXT,
+   augums TEXT,
+   svars TEXT,
+   bmi TEXT);
+""")
+conn.commit()
+# https://pythonru.com/osnovy/sqlite-v-python
+
 def calc_bmi(h,w):
     try:
         h, w = float(h), float(w)
@@ -17,6 +36,8 @@ def calc_bmi(h,w):
         return None
     else:
         return (f'BMI: {bmi}, {standard}')
+
+
 
 
 menu_def = [['File', ['Open', 'Save', 'Exit', 'Properties']],    
