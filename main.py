@@ -68,5 +68,6 @@ while True:
       window['radit'].update('dati saglabāti')
       ieraksts=(values[1],values[2],values[3],values[4],values[5],bmi)
       window['radit'].update(ieraksts)
+      print(type(ieraksts))
 conn.commit()
 window.close()
