@@ -12,7 +12,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS users(
    userid INT PRIMARY KEY,
    vards TEXT,
    uzvards TEXT,
-   dzimsanas datums TEXT,
+   dzim_datums TEXT,
    augums TEXT,
    svars TEXT,
    bmi TEXT);
@@ -51,7 +51,7 @@ layot = [[sg.Menu(menu_def, tearoff=True)],
         [sg.Text("Svars"), sg.InputText(size=(25,1))],
         [sg.Button("aprēķināt BMI", key='submit')],
         [sg.Text('', key='bmi', size=(20,2))],
-        [sg.Text('', key='radit',size=(20,2))],
+        [sg.Text('', key='radit',size=(40,2))],
         [sg.Button("Saglabāt datus", key='glab'),sg.Button("Beigt", key='q')]]
 
 window = sg.Window ("Calculator BMI", layot)
@@ -66,7 +66,7 @@ while True:
       window['bmi'].update (bmi)
     if event == 'glab':
       window['radit'].update('dati saglabāti')
-      cur.execute("""INSERT INTO users(userid, vards, uzvards, dzimsanas datums, augums, svars, bmi) 
-   VALUES(values[0], values[1], values[2], values[3], values[4], values[5],bmi);""")
+      ieraksts=(values[1],values[2],values[3],values[4],values[5],bmi)
+      window['radit'].update(ieraksts)
 conn.commit()
 window.close()
