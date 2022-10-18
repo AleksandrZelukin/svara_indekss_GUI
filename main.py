@@ -9,7 +9,6 @@ conn = sqlite3.connect(r'veseliba.db')
 cur = conn.cursor()
 
 cur.execute("""CREATE TABLE IF NOT EXISTS users(
-   userid INT PRIMARY KEY,
    vards TEXT,
    uzvards TEXT,
    dzim_datums TEXT,
@@ -68,6 +67,13 @@ while True:
       window['radit'].update('dati saglabāti')
       ieraksts=(values[1],values[2],values[3],values[4],values[5],bmi)
       window['radit'].update(ieraksts)
-      print(type(ieraksts))
+      #print(type(ieraksts))
+      #print(ieraksts)
+      cur.execute("INSERT INTO Users VALUES(?,?,?,?,?,?)",ieraksts)
+
+
+      records = cur.execute("SELECT * FROM Users")
+
+      print(cur.fetchall())      
 conn.commit()
 window.close()
