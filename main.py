@@ -51,7 +51,7 @@ layot = [[sg.Menu(menu_def, tearoff=True)],
         [sg.Button("aprēķināt BMI", key='submit')],
         [sg.Text('', key='bmi', size=(20,2))],
         [sg.Text('', key='radit',size=(40,2))],
-        [sg.Button("Saglabāt datus", key='glab'),sg.Button("Beigt", key='q')]]
+        [sg.Button("Saglabāt datus", key='glab'),sg.Button("Skātit dati", key='skat'),sg.Button("Beigt", key='q')]]
 
 window = sg.Window ("Calculator BMI", layot)
 
@@ -67,13 +67,14 @@ while True:
       window['radit'].update('dati saglabāti')
       ieraksts=(values[1],values[2],values[3],values[4],values[5],bmi)
       window['radit'].update(ieraksts)
-      #print(type(ieraksts))
+      print(type(ieraksts))
       #print(ieraksts)
       cur.execute("INSERT INTO Users VALUES(?,?,?,?,?,?)",ieraksts)
-
-
+      conn.commit()
+    if event == 'skat':
+      
       records = cur.execute("SELECT * FROM Users")
 
       print(cur.fetchall())      
-conn.commit()
+
 window.close()
