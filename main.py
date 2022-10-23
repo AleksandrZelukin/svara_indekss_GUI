@@ -4,11 +4,15 @@ from datetime import date
 import PySimpleGUI as sg
 import sqlite3
 
+import random
+import string
+
 conn = sqlite3.connect(r'veseliba.db')
 
 cur = conn.cursor()
 
 cur.execute("""CREATE TABLE IF NOT EXISTS users(
+   id_user TEXT,
    vards TEXT,
    uzvards TEXT,
    dzim_datums TEXT,
@@ -49,7 +53,7 @@ layot = [[sg.Menu(menu_def, tearoff=True)],
         [sg.Text("Augums"), sg.InputText (size=(25,1))],
         [sg.Text("Svars"), sg.InputText(size=(25,1))],
         [sg.Button("aprēķināt BMI", key='submit')],
-        [sg.Text('', key='bmi', size=(20,2))],
+        [sg.Text('', key='bmi', size=(20,1))],
         [sg.Text('', key='radit',size=(40,2))],
         [sg.Button("Saglabāt datus", key='glab'),sg.Button("Skātit dati", key='skat'),sg.Button("Beigt", key='q')]]
 
@@ -65,11 +69,16 @@ while True:
       window['bmi'].update (bmi)
     if event == 'glab':
       window['radit'].update('dati saglabāti')
-      ieraksts=(values[1],values[2],values[3],values[4],values[5],bmi)
+      
+      letters = string.digits + string.ascii_letters
+      #letters = string.ascii_letters
+      rand_string = ''.join(random.choice(letters) for i in range(16))
+      
+      ieraksts=(rand_string,values[1],values[2],values[3],values[4],values[5],bmi)
       window['radit'].update(ieraksts)
       #print(type(ieraksts))
       #print(ieraksts)
-      cur.execute("INSERT INTO Users VALUES(?,?,?,?,?,?)",ieraksts)
+      cur.execute("INSERT INTO Users VALUES(?,?,?,?,?,?,?)",ieraksts)
       conn.commit()
     if event == 'skat':
       records = cur.execute("SELECT * FROM Users")
