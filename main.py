@@ -12,7 +12,7 @@ conn = sqlite3.connect(r'veseliba.db')
 cur = conn.cursor()
 
 cur.execute("""CREATE TABLE IF NOT EXISTS users(
-   id_user TEXT,
+   id_user PRIMARY KEY,
    vards TEXT,
    uzvards TEXT,
    dzim_datums TEXT,
@@ -43,15 +43,14 @@ def calc_bmi(h,w):
 
 
 
-
 menu_def = [['File', ['Open', 'Save', 'Exit', 'Properties']],    
            ['Edit', ['Paste', ['Special', 'Normal', ], 'Undo'],],            ['Help', 'About...'], ]      
 layot = [[sg.Menu(menu_def, tearoff=True)],
-        [sg.Text("Vārds"), sg.InputText (size=(25,1))],
-        [sg.Text("Uzvārd"), sg.InputText (size=(25,1))],
-        [sg.Text("dzinšanas datums"), sg.InputText('dd,mm,gggg',size=(25,1))],
-        [sg.Text("Augums"), sg.InputText (size=(25,1))],
-        [sg.Text("Svars"), sg.InputText(size=(25,1))],
+        [sg.Text("Vārds",size=(16,1)), sg.InputText (size=(15,1))],
+        [sg.Text("Uzvārd",size=(16,1)), sg.InputText (size=(15,1))],
+        [sg.Text("dzinšanas datums",size=(16,1)), sg.InputText('dd,mm,gggg',size=(15,1))],
+        [sg.Text("Augums",size=(16,1)), sg.InputText (size=(15,1))],
+        [sg.Text("Svars",size=(16,1)), sg.InputText(size=(15,1))],
         [sg.Button("aprēķināt BMI", key='submit')],
         [sg.Text('', key='bmi', size=(20,1))],
         [sg.Text('', key='radit',size=(40,2))],
